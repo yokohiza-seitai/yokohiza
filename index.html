@@ -198,6 +198,8 @@
   }
   #screen-know { display: none; }
   #screen-know.visible { display: block; animation: fadein 0.4s ease; }
+  #screen-symptoms { display: none; }
+  #screen-symptoms.visible { display: block; animation: fadein 0.4s ease; }
   #screen-consult { display: none; }
   #screen-consult.visible { display: block; animation: fadein 0.4s ease; }
   @keyframes fadein {
@@ -222,6 +224,26 @@
     font-weight: 700;
     font-size: 20px;
     margin: 6px 0 24px;
+  }
+  .faq-item {
+    background: var(--bg-soft);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+    box-shadow: var(--card-shadow);
+  }
+  .faq-q {
+    font-family: "Zen Maru Gothic", sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 8px;
+    color: var(--moss-deep);
+  }
+  .faq-a {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 14.5px;
   }
   .option-card {
     display: block;
@@ -474,10 +496,38 @@
       <div id="resultBody"></div>
 
       <div class="cta-box">
-        <button class="start-btn" onclick="goTo('screen-know')" style="width:100%;">あなたの膝について知る</button>
+        <button class="start-btn" onclick="goTo('screen-symptoms')" style="width:100%;">あなたの膝について知る</button>
       </div>
     </div>
     <button class="retry-link" onclick="resetQuiz()">もう一度チェックする</button>
+  </div>
+
+  <div id="screen-symptoms">
+    <button class="back-link" onclick="goTo('result')">← 結果にもどる</button>
+    <div class="know-title">あなたの膝について知る</div>
+    <p style="text-align:center; color:var(--ink-soft); font-size:14px; margin:-8px 0 22px;">気になるサインについて、少し詳しくご紹介します</p>
+
+    <div class="faq-item">
+      <div class="faq-q">膝が腫れている</div>
+      <p class="faq-a">腫れがある場合は、関節内に炎症が起きているサインのことがあります。市販薬や湿布で様子を見るだけでなく、病院での診断が必要になることもあります。</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">膝が曲がらない</div>
+      <p class="faq-a">膝は曲がる角度が保たれているほど、しゃがむ・階段を降りるといった日常の動作が楽になります。曲がりにくさの背景にある原因を見つけて整えていくことが大切です。</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">膝が伸びにくい</div>
+      <p class="faq-a">膝がしっかり伸びることで関節が安定し、膝にかかる負担が軽くなります。伸びにくさの原因に向き合うことが、負担を減らす近道になります。</p>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">お皿（膝蓋骨）が動かない</div>
+      <p class="faq-a">膝のお皿は、本来なめらかに動くものです。動きが悪くなると膝全体の動きがスムーズにいかず、痛みや違和感につながりやすくなります。お皿の動きを取り戻すことも大切なケアの一つです。</p>
+    </div>
+
+    <button class="start-btn" onclick="goTo('screen-know')" style="width:100%;">次へ：今のあなたにできること</button>
   </div>
 
   <div id="screen-know">
@@ -551,7 +601,7 @@
   }
 
   function goTo(id) {
-    document.querySelectorAll('#result, #screen-know, #screen-consult, #quiz').forEach(el => el.classList.remove('visible'));
+    document.querySelectorAll('#result, #screen-symptoms, #screen-know, #screen-consult, #quiz').forEach(el => el.classList.remove('visible'));
     const target = document.getElementById(id);
     target.classList.add('visible');
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
