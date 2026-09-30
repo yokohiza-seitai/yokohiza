@@ -200,6 +200,8 @@
   #screen-know.visible { display: block; animation: fadein 0.4s ease; }
   #screen-symptoms { display: none; }
   #screen-symptoms.visible { display: block; animation: fadein 0.4s ease; }
+  #symptom-swell, #symptom-bend, #symptom-extend, #symptom-patella { display: none; }
+  #symptom-swell.visible, #symptom-bend.visible, #symptom-extend.visible, #symptom-patella.visible { display: block; animation: fadein 0.4s ease; }
   #screen-consult { display: none; }
   #screen-consult.visible { display: block; animation: fadein 0.4s ease; }
   @keyframes fadein {
@@ -245,6 +247,15 @@
     color: var(--ink-soft);
     font-size: 14.5px;
   }
+  .faq-item.faq-sub {
+    margin-left: 18px;
+    padding: 14px 18px;
+    background: color-mix(in srgb, var(--bg-soft) 70%, var(--bg));
+    border-left: 3px solid var(--moss);
+    border-radius: 4px 14px 14px 4px;
+  }
+  .faq-item.faq-sub .faq-q { font-size: 14px; }
+  .faq-item.faq-sub .faq-a { font-size: 13.5px; }
   .option-card {
     display: block;
     width: 100%;
@@ -505,28 +516,79 @@
   <div id="screen-symptoms">
     <button class="back-link" onclick="goTo('result')">← 結果にもどる</button>
     <div class="know-title">あなたの膝について知る</div>
-    <p style="text-align:center; color:var(--ink-soft); font-size:14px; margin:-8px 0 22px;">気になるサインについて、少し詳しくご紹介します</p>
+    <p style="text-align:center; color:var(--ink-soft); font-size:14px; margin:-8px 0 22px;">気になるサインを選んでください</p>
+
+    <div class="option-card" onclick="goTo('symptom-swell')">
+      <span class="opt-title">膝が腫れている</span>
+    </div>
+    <div class="option-card" onclick="goTo('symptom-bend')">
+      <span class="opt-title">膝が曲がらない</span>
+    </div>
+    <div class="option-card" onclick="goTo('symptom-extend')">
+      <span class="opt-title">膝が伸びない</span>
+    </div>
+    <div class="option-card" onclick="goTo('symptom-patella')">
+      <span class="opt-title">膝のお皿が動かない</span>
+    </div>
+  </div>
+
+  <div id="symptom-swell">
+    <button class="back-link" onclick="goTo('screen-symptoms')">← 一覧にもどる</button>
+    <div class="know-title">膝が腫れている</div>
+    <div class="faq-item">
+      <p class="faq-a">腫れている場合は、まずアイシングをして炎症を抑えることが大切です。腫れが強い場合や、なかなか引かない場合は、整形外科への受診が必要になることもあります。</p>
+    </div>
+    <button class="start-btn" onclick="goTo('screen-know')" style="width:100%;">次へ：今のあなたにできること</button>
+  </div>
+
+  <div id="symptom-bend">
+    <button class="back-link" onclick="goTo('screen-symptoms')">← 一覧にもどる</button>
+    <div class="know-title">膝が曲がらない</div>
+    <p style="text-align:center; color:var(--ink-soft); font-size:14px; margin:-14px 0 20px;">動作によって原因が異なります</p>
 
     <div class="faq-item">
-      <div class="faq-q">膝が腫れている</div>
-      <p class="faq-a">腫れがある場合は、関節内に炎症が起きているサインのことがあります。市販薬や湿布で様子を見るだけでなく、病院での診断が必要になることもあります。</p>
+      <div class="faq-q">階段を上れない</div>
+      <p class="faq-a">膝の曲がる角度に加えて、股関節の使い方を見直すことが必要になることがあります。</p>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">階段を下りれない</div>
+      <p class="faq-a">膝の曲がる角度、足首の角度、膝のねじれといった、複数の要素を調整する必要があります。</p>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">しゃがめない・正座ができない</div>
+      <p class="faq-a">膝の可動域を取り戻すことが必要です。そのためには、太もも前側（大腿四頭筋）や足首の柔軟性も大切なポイントになります。</p>
     </div>
 
-    <div class="faq-item">
-      <div class="faq-q">膝が曲がらない</div>
-      <p class="faq-a">膝は曲がる角度が保たれているほど、しゃがむ・階段を降りるといった日常の動作が楽になります。曲がりにくさの背景にある原因を見つけて整えていくことが大切です。</p>
-    </div>
+    <button class="start-btn" onclick="goTo('screen-know')" style="width:100%;">次へ：今のあなたにできること</button>
+  </div>
+
+  <div id="symptom-extend">
+    <button class="back-link" onclick="goTo('screen-symptoms')">← 一覧にもどる</button>
+    <div class="know-title">膝が伸びない</div>
+    <p style="text-align:center; color:var(--ink-soft); font-size:14px; margin:-14px 0 20px;">痛む場所によって原因が異なります</p>
 
     <div class="faq-item">
-      <div class="faq-q">膝が伸びにくい</div>
-      <p class="faq-a">膝がしっかり伸びることで関節が安定し、膝にかかる負担が軽くなります。伸びにくさの原因に向き合うことが、負担を減らす近道になります。</p>
+      <div class="faq-q">膝の内側</div>
+      <p class="faq-a">膝の内側の痛みは、関節そのものの状態が関わっていることがあります。まずは関節の状態を確認することが大切です。</p>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">膝の下側</div>
+      <p class="faq-a">膝の下あたりの痛みは、膝蓋下脂肪体（膝のお皿の下にある脂肪組織）が硬くなっていることも一つの原因として考えられます。</p>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">膝の裏側</div>
+      <p class="faq-a">膝の裏の痛みは、ふくらはぎや太もも裏側の筋肉が硬くなっていることが原因として考えられます。</p>
     </div>
 
+    <button class="start-btn" onclick="goTo('screen-know')" style="width:100%;">次へ：今のあなたにできること</button>
+  </div>
+
+  <div id="symptom-patella">
+    <button class="back-link" onclick="goTo('screen-symptoms')">← 一覧にもどる</button>
+    <div class="know-title">膝のお皿が動かない</div>
     <div class="faq-item">
-      <div class="faq-q">お皿（膝蓋骨）が動かない</div>
       <p class="faq-a">膝のお皿は、本来なめらかに動くものです。動きが悪くなると膝全体の動きがスムーズにいかず、痛みや違和感につながりやすくなります。お皿の動きを取り戻すことも大切なケアの一つです。</p>
     </div>
-
     <button class="start-btn" onclick="goTo('screen-know')" style="width:100%;">次へ：今のあなたにできること</button>
   </div>
 
@@ -601,7 +663,7 @@
   }
 
   function goTo(id) {
-    document.querySelectorAll('#result, #screen-symptoms, #screen-know, #screen-consult, #quiz').forEach(el => el.classList.remove('visible'));
+    document.querySelectorAll('#result, #screen-symptoms, #symptom-swell, #symptom-bend, #symptom-extend, #symptom-patella, #screen-know, #screen-consult, #quiz').forEach(el => el.classList.remove('visible'));
     const target = document.getElementById(id);
     target.classList.add('visible');
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
