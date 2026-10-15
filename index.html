@@ -369,6 +369,37 @@
     border-radius: 999px;
     margin-bottom: 16px;
   }
+  .score-area { margin-bottom: 22px; }
+  .score-numbers {
+    font-family: "Zen Maru Gothic", sans-serif;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .score-numbers #scoreCount {
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--moss-deep);
+  }
+  .score-numbers .score-total {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink-soft);
+    margin-left: 4px;
+  }
+  .score-bar {
+    width: 100%;
+    height: 12px;
+    background: var(--disabled-bg, color-mix(in srgb, var(--ink-soft) 16%, transparent));
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .score-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--moss) 0%, var(--apricot) 100%);
+    border-radius: 999px;
+    transition: width 0.5s ease;
+  }
   .result-card h2 {
     font-size: 21px;
     font-weight: 700;
@@ -460,7 +491,7 @@
     </label>
     <label class="check-card">
       <input type="checkbox" data-q>
-      <span>椅子から立ち上がる瞬間、膝がこわばる・痛む</span>
+      <span>椅子やソファから立ち上がるとき、膝が痛む・こわばる</span>
     </label>
     <label class="check-card">
       <input type="checkbox" data-q>
@@ -468,7 +499,19 @@
     </label>
     <label class="check-card">
       <input type="checkbox" data-q>
-      <span>歩き続けていると、だんだん膝に違和感が出てくる</span>
+      <span>長い時間歩き続けると、膝に違和感が出てくる</span>
+    </label>
+    <label class="check-card">
+      <input type="checkbox" data-q>
+      <span>膝がしっかりはまらないような、不安定な感じがある</span>
+    </label>
+    <label class="check-card">
+      <input type="checkbox" data-q>
+      <span>膝に力が入らず、カクッと抜けるような感覚がある</span>
+    </label>
+    <label class="check-card">
+      <input type="checkbox" data-q>
+      <span>膝が不意に崩れそうで、怖さを感じることがある</span>
     </label>
 
     <div class="group-label">心当たりのあることはありますか？</div>
@@ -502,6 +545,10 @@
 
   <div id="result">
     <div class="result-card">
+      <div class="score-area">
+        <div class="score-numbers"><span id="scoreCount">0</span><span class="score-total">/12 項目</span></div>
+        <div class="score-bar"><div class="score-bar-fill" id="scoreBarFill"></div></div>
+      </div>
       <span class="result-tag" id="resultTag"></span>
       <h2 id="resultTitle"></h2>
       <div id="resultBody"></div>
@@ -671,7 +718,12 @@
 
   function showResult() {
     const boxes = document.querySelectorAll('[data-q]');
+    const total = boxes.length;
     const count = Array.from(boxes).filter(b => b.checked).length;
+
+    document.getElementById('scoreCount').textContent = count;
+    document.querySelector('.score-total').textContent = `/${total} 項目`;
+    document.getElementById('scoreBarFill').style.width = `${Math.round((count / total) * 100)}%`;
 
     const tag = document.getElementById('resultTag');
     const title = document.getElementById('resultTitle');
@@ -684,7 +736,7 @@
         <p>チェックが付かなかったのは、日々のケアがうまくいっているサインかもしれません。</p>
         <p>とはいえ膝は年齢とともに少しずつ変化していく部分でもあります。ふとした違和感を感じたときは、無理せず早めに体を休めてあげてください。</p>
       `;
-    } else if (count <= 2) {
+    } else if (count <= 3) {
       tag.textContent = '少し膝に負担がかかっているかもしれません';
       title.textContent = '小さなサインを、見逃さずに';
       body.innerHTML = `
